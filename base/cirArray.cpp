@@ -24,7 +24,7 @@ cirArray<T>::cirArray(const int l, const char r, T* val){
 	if (r == 'd' | r == 'c'){ this->expand_rule = r; }
 	else{ }
 	this->carrier =new T[lenght];
-	carrier[0] = val;
+	carrier[0] = *val;
 }
 template<typename T>
  int cirArray<T>::grow(){
@@ -39,13 +39,13 @@ template<typename T>
 	}
 
 	T* otherc = new T[lenght];
-	T* de = carrier;
+	
 
 	for (int i = 0; i < oldL; ++i){
-		otherc[i] = de[i];
+		otherc[i] = carrier[i];
 	}
+	delete[] carrier;
 	carrier = otherc;
-	//otherc = nullptr;
 	return lenght;
 }
  template<typename T>
