@@ -9,12 +9,11 @@ TODO comments
 
 //default constructor takes only one stored value as argument
 template<typename T>
-cirArray<T>::cirArray(T* val){
+cirArray<T>::cirArray(){
 	lenght = 20;
 	lconst = 20;
 	expand_rule = 'd';
 	carrier = new T[lenght];
-	carrier[0] = val;
 }
 
 //full constructor takes 3 argument, and will store the input value in the first place
@@ -29,6 +28,7 @@ cirArray<T>::cirArray(const int l, const char r, T* val){
 }
 template<typename T>
  int cirArray<T>::grow(){
+	 
 	int oldL = lenght;
 	if (expand_rule == 'd'){
 
@@ -39,23 +39,38 @@ template<typename T>
 	}
 
 	T* otherc = new T[lenght];
+	T* de = carrier;
+
 	for (int i = 0; i < oldL; ++i){
-		*otherc[i] = *carrier[i];
-		delete carrier[i];
-		carrier[i] = nullptr;
+		otherc[i] = de[i];
 	}
-	T* carrier = otherc;
+	carrier = otherc;
+	//otherc = nullptr;
 	return lenght;
 }
  template<typename T>
-T* cirArray<T>::operator [](const int i){
-	 if (i < lenght){
-		 return carrier[i];
+T* cirArray<T>::valueAt(const int i){
+	 if (i < lenght-1){
+		 return &carrier[i];
 	 }
 	 else{
-		 while (i >= lenght){
+		 while (i >= lenght-1){
 			 this->grow();
 		 }
-		 return carrier[i];
+		 return &carrier[i];
 	 }
  }
+
+template<typename T>
+void cirArray<T>::assign(int i, T val){
+		while (i >= lenght - 1){
+			this->grow();
+		}
+		this->carrier[i] = val;
+	
+}
+
+//template<typename T>
+//void cirArray<T>::assign(int i, T val){
+//	this->carrier[i] = val;
+//}

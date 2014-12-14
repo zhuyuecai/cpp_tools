@@ -7,10 +7,10 @@ class cirArray
 public:
 	//default constructor
 
-	cirArray(T* val);
+	cirArray();
 	//full constructor;
 
-	cirArray(const int l, const char r,  T* val);
+	cirArray(const int l, const char r, T* val);
 
 
 	//destructor
@@ -21,7 +21,8 @@ public:
 	//TODO throw error
 	
 	int capasity(){ return lenght; }
-	T* operator[](const int i);
+	T* valueAt(const int i);
+	void assign(int i, T val);
 	int grow();
 	
 
